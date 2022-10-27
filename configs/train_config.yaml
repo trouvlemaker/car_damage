@@ -1,0 +1,62 @@
+sodaflow:
+    dataset_path:
+        - "/datasets/sample-data/"
+    start_ckpt_path: "./trained_model"
+    test_model_path: "./trained_model"
+
+train_inputs:
+  dataset_type: CocoDataset
+  classes:
+    - scratch
+    - dent
+    - complex_damage
+    - broken
+  num_classes: 0
+  train_ann: "coco_annotations/train.json"
+  train_imgs: train
+  valid_ann: "coco_annotations/valid.json"
+  valid_imgs: valid
+  test_ann: "coco_annotations/valid.json"
+  test_imgs: valid
+  test_score_thr: 0.01
+  max_epoch: 5
+  lr: 0.001
+  warmup_ratio: 0.1
+  warmup_iters: 5000
+  lr_periods: [3, 2]
+  lr_restart_weights: [1.0, 0.5]
+  min_lr_ratio: 0.01
+  log_interval: 100
+  eval_interval: 1
+  ckpt_interval: 1
+  max_keep_ckpts: 1
+  save_best_metric: auto
+  SyncNormHook_interval: 10
+  FT: true
+  batch_size: 1
+  workers: 4
+  lanucher: none
+eval_inputs:
+  dataset_type: CocoDataset
+  test_ann: "coco_annotations/valid.json"
+  test_imgs: valid
+  eval: bbox # "bbox", "segm", "proposal" for COCO, and "mAP", "recall" for PASCAL VOC
+  batch_size: 4
+  workers: 4
+  lanucher: none
+  fuse_conv_bn: true
+  show: false
+  show_dir: "./tmp"
+  show_score_thr: 0.3
+  gpu_collect: false
+  tmpdir: "./result_tmp"
+  result_out: "./result_tmp/eval_result.pkl"
+  format_only: true
+  eval_options:
+  test_score_thr: 0.2
+  model_config: "./configs/dyhead_config.py"
+
+log_level: INFO
+experiment_name: test
+work_dir: "./model_logs"
+model_config: "./configs/dyhead_config.py"

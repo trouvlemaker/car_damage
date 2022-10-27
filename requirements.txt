@@ -1,0 +1,21 @@
+-f https://download.openmmlab.com/mmcv/dist/cu111/torch1.10.0/index.html
+-f https://download.pytorch.org/whl/torch_stable.html
+
+# These must be installed before building mmdetection
+Cython==0.29.30
+numpy==1.19.5
+torch==1.10.0+cu111
+torchvision==0.11.0+cu111
+
+# core package
+mmcv-full
+mmdet==2.25.1
+
+# extra packages
+Shapely==1.8.2
+pdf2image
+PyYAML
+terminaltables
+pycocotools
+future
+tensorboard
